@@ -1,0 +1,33 @@
+#include <Servo.h>
+Servo servo1;
+int trigPin = 7;
+int echoPin = 6;
+long distance;
+long duration;
+void setup() 
+{
+servo1.attach(10); 
+ pinMode(trigPin, OUTPUT);
+ pinMode(echoPin, INPUT);
+}
+void loop()
+{
+  ultra_sonic();
+  servo1.write(0);
+  if(distance <=50)
+  {
+  servo1.write(90);
+    delay(100);
+  }
+
+}
+void ultra_sonic()
+{
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration*0.0343/2;
+  }
